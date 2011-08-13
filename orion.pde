@@ -36,6 +36,23 @@ class Ship {
       -PI / 2, PI / 2);
   }
 }
+class Star {
+  int x;
+  int y;
+  Star(int x, int y) {
+    this.x = x;
+    this.y = y;
+  }
+  void moveBy(int dx, int dy) {
+    this.x -= dx;
+    this.y -= dy;
+  }
+  void draw() {
+    fill( 255, 121, 184 );  
+    stroke(255, 0, 0);   
+    ellipse(x, y, 3, 3);            
+  }
+}
 Ship s = new Ship();
 void draw(){    
   background( 100 );  
@@ -44,9 +61,6 @@ void draw(){
 }   
 
 void drawStars() {
-  fill( 255, 121, 184 );  
-  stroke(255, 0, 0);   
-  ellipse( 180, 180, 3, 3);            
+  new Star(10).draw();
 }
-
 
