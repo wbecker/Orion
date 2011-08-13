@@ -60,13 +60,14 @@ Ship s = new Ship();
 ArrayList stars = new ArrayList();
 int maxStarSize = 5;
 int initialStars = 60;
+int desiredFrameRate = 30;
 void setup() {  
   size(800,400);  
   background(125);  
   fill(255);  
   PFont fontA = loadFont("courier");  
   textFont(fontA, 14);    
-  frameRate( 15 )
+  frameRate( desiredFrameRate )
   
   createStars(); 
 }
@@ -77,11 +78,14 @@ void createStars() {
   }
 }
 int speed = 0;
+int lastExplosion = 0;
 void draw () {    
+  float now = millis();
   background( 100 );  
   moveStars(speed); 
   drawStars(); 
-  if (frameCount % 20 == 0) {
+  if (now - lastExplosion > 2000) {
+    lastExplosion = now;
     s.applyForce(1);
     speed += 1;
   } else {
@@ -90,20 +94,25 @@ void draw () {
   s.draw(width/2, height/2);
   writeInfo();
 }   
+int lastMove = 0;
 void moveStars(int speed) {
- ArrayList toRemove = new ArrayList();
- for (int i = 0; i < stars.size(); i++) {
-   Star star = (Star) stars.get(i);
-   star.moveBy(speed, 0);
-   if (!star.isVisible()) {
-     toRemove.add(i);
-   }
- }
- for (int i = 0; i < toRemove.size(); i++) {
-   stars.remove(toRemove.get(i));
-   stars.add(new Star(width + random(speed)*2, random(height), random(maxStarSize)));
- }
-
+  float now = millis();
+  if ((speed > 0) && (now - lastMove > 600/speed)) {
+    lastMove = now;
+    ArrayList toRemove = new ArrayList();
+    for (int i = 0; i < stars.size(); i++) {
+      Star star = (Star) stars.get(i);
+      star.moveBy(speed, 0);
+      if (!star.isVisible()) {
+        toRemove.add(i);
+      }
+    }
+    for (int i = 0; i < toRemove.size(); i++) {
+      stars.remove(toRemove.get(i));
+      stars.add(new Star(width + random(speed)*2, 
+        random(height), random(maxStarSize)));
+    }
+  }
 }
 
 void drawStars() {
@@ -114,4 +123,6 @@ void drawStars() {
 void writeInfo() {
   fill(255);
   text("Speed: "+speed, 20, 20);
+  text(frameRate+" fps", 20, 40);
+  text(lastMove +" ms", 20, 60);
 }
