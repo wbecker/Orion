@@ -22,18 +22,23 @@ class Ship {
 class Star {
   int x;
   int y;
+  int radius;
   Star(int x, int y) {
     this.x = x;
     this.y = y;
+    this.radius = 2;
   }
   void moveBy(int dx, int dy) {
     this.x -= dx;
     this.y -= dy;
   }
+  boolean isVisible() {
+    return x + radius >= 0;
+  }
   void draw() {
     fill( 255, 121, 184 );  
     stroke(255, 0, 0);   
-    ellipse(x, y, 3, 3);            
+    ellipse(x, y, radius * 2, radius * 2);            
   }
 }
 
@@ -63,9 +68,19 @@ void draw () {
   s.draw(width/2, height/2, 0);
 }   
 void moveStars(int speed) {
+ ArrayList toRemove = new ArrayList();
  for (int i = 0; i < 20; i++) {
-   stars.get(i).moveBy(speed, 0);
+   Star star = (Star) stars.get(i);
+   star.moveBy(speed, 0);
+   if (!star.isVisible()) {
+     toRemove.add(i);
+   }
  }
+ for (int i = 0; i < toRemove.size(); i++) {
+   stars.remove(toRemove.get(i));
+   stars.add(new Star(width, random(height)));
+ }
+
 }
 
 void drawStars() {
