@@ -20,7 +20,7 @@ void setup()
 void draw(){    
   background( 100 );  
   drawStars(); 
-  drawShip();
+  drawShip(width/2, height/2, 0);
 }   
 
 void drawStars() {
@@ -29,12 +29,21 @@ void drawStars() {
   ellipse( 180, 180, 3, 3);            
 }
   
-void drawShip () {
-  radius = radius + sin( frameCount / 4 );  
-  X+=(nX-X)/delay;  
-  Y+=(nY-Y)/delay;  
-  fill( 0, 121, 184 );  
+void drawShip (int x, int y, float force) {
+  int len = 40;
+  int h = 20;
+  int rodEdgeDistance = h / 2 - 4;
+  int rodLength = 20;
+  int shieldLength = 10;
+  int shieldRadius = 20;
+
+  fill(0, 121, 184);  
   stroke(255);   
-  ellipse( X, Y, radius, radius );            
-  
+  rect(x, y - h / 2, len, h);
+
+  line(x, y + rodEdgeDistance, x - rodLength, y + rodEdgeDistance);
+  line(x, y - rodEdgeDistance, x - rodLength, y - rodEdgeDistance);
+
+  arc(x - (rodLength + shieldLength), y, shieldLength * 2, shieldRadius * 2, 
+    -PI / 2, PI / 2);
 }
