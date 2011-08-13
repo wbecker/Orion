@@ -88,6 +88,7 @@ void draw () {
     s.applyForce(0);
   }
   s.draw(width/2, height/2);
+  writeInfo();
 }   
 void moveStars(int speed) {
  ArrayList toRemove = new ArrayList();
@@ -110,4 +111,7 @@ void drawStars() {
    stars.get(i).draw();
  }
 }
-
+void writeInfo() {
+  fill(255);
+  text("Speed: "+speed, 20, 20);
+}
