@@ -3,7 +3,7 @@ class Ship {
   int h = 20;
   int rodEdgeDistance = h / 2 - 4;
   int rodLength = 20;
-  int shieldLength = 10;
+  int shieldLength = 20;
   int shieldRadius = 20;
 
   void draw(int x, int y, float force) {
