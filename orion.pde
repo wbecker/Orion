@@ -16,20 +16,7 @@ void setup()
   nY = Y;    
   frameRate( 15 )
 }    
-
-void draw(){    
-  background( 100 );  
-  drawStars(); 
-  drawShip(width/2, height/2, 0);
-}   
-
-void drawStars() {
-  fill( 255, 121, 184 );  
-  stroke(255, 0, 0);   
-  ellipse( 180, 180, 3, 3);            
-}
-  
-void drawShip (int x, int y, float force) {
+class Ship {
   int len = 40;
   int h = 20;
   int rodEdgeDistance = h / 2 - 4;
@@ -37,13 +24,29 @@ void drawShip (int x, int y, float force) {
   int shieldLength = 10;
   int shieldRadius = 20;
 
-  fill(0, 121, 184);  
-  stroke(255);   
-  rect(x, y - h / 2, len, h);
+  void draw(int x, int y, float force) {
+    fill(0, 121, 184);  
+    stroke(255);   
+    rect(x, y - h / 2, len, h);
 
-  line(x, y + rodEdgeDistance, x - rodLength, y + rodEdgeDistance);
-  line(x, y - rodEdgeDistance, x - rodLength, y - rodEdgeDistance);
+    line(x, y + rodEdgeDistance, x - rodLength, y + rodEdgeDistance);
+    line(x, y - rodEdgeDistance, x - rodLength, y - rodEdgeDistance);
 
-  arc(x - (rodLength + shieldLength), y, shieldLength * 2, shieldRadius * 2, 
-    -PI / 2, PI / 2);
+    arc(x - (rodLength + shieldLength), y, shieldLength * 2, shieldRadius * 2, 
+      -PI / 2, PI / 2);
+  }
 }
+Ship s = new Ship();
+void draw(){    
+  background( 100 );  
+  drawStars(); 
+  s.draw(width/2, height/2, 0);
+}   
+
+void drawStars() {
+  fill( 255, 121, 184 );  
+  stroke(255, 0, 0);   
+  ellipse( 180, 180, 3, 3);            
+}
+
+
