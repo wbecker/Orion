@@ -23,10 +23,10 @@ class Star {
   int x;
   int y;
   int radius;
-  Star(int x, int y) {
+  Star(int x, int y, int radius) {
     this.x = x;
     this.y = y;
-    this.radius = 2;
+    this.radius = radius;
   }
   void moveBy(int dx, int dy) {
     this.x -= dx;
@@ -44,8 +44,10 @@ class Star {
 
 Ship s = new Ship();
 ArrayList stars = new ArrayList();
+int maxStarSize = 5;
+int initialStars = 60;
 void setup() {  
-  size(200,200);  
+  size(800,400);  
   background(125);  
   fill(255);  
   PFont fontA = loadFont("courier");  
@@ -56,8 +58,8 @@ void setup() {
 }
 void createStars() {
   int ii;
-  for (ii = 0; ii < 20; ii++) {
-    stars.add(new Star(random(width), random(height)));
+  for (ii = 0; ii < initialStars; ii++) {
+    stars.add(new Star(random(width), random(height), random(maxStarSize)));
   }
 }
 void draw () {    
@@ -69,7 +71,7 @@ void draw () {
 }   
 void moveStars(int speed) {
  ArrayList toRemove = new ArrayList();
- for (int i = 0; i < 20; i++) {
+ for (int i = 0; i < stars.size(); i++) {
    Star star = (Star) stars.get(i);
    star.moveBy(speed, 0);
    if (!star.isVisible()) {
@@ -78,13 +80,13 @@ void moveStars(int speed) {
  }
  for (int i = 0; i < toRemove.size(); i++) {
    stars.remove(toRemove.get(i));
-   stars.add(new Star(width, random(height)));
+   stars.add(new Star(width, random(height), random(maxStarSize)));
  }
 
 }
 
 void drawStars() {
- for (int i = 0; i < 20; i++) {
+ for (int i = 0; i < stars.size(); i++) {
    stars.get(i).draw();
  }
 }
