@@ -2,11 +2,25 @@ class Ship {
   int len = 40;
   int h = 20;
   int rodEdgeDistance = h / 2 - 4;
-  int rodLength = 20;
+  int maxRodLength = 20;
   int shieldLength = 20;
   int shieldRadius = 20;
 
-  void draw(int x, int y, float force) {
+  int rodLength;
+  Ship() {
+    this.rodLength = maxRodLength;
+  }
+
+  void applyForce(float force) {
+    if (force > 0) {
+      rodLength = 0;
+    } else if (rodLength < maxRodLength) {
+      rodLength += 1
+    } else {
+      rodLength = maxRodLength;
+    }
+  }
+  void draw(int x, int y) {
     fill(0, 121, 184);  
     stroke(255);   
     rect(x, y - h / 2, len, h);
@@ -67,7 +81,12 @@ void draw () {
   int speed = 2;
   moveStars(speed); 
   drawStars(); 
-  s.draw(width/2, height/2, 0);
+  if (frameCount % 20 == 0) {
+    s.applyForce(1);
+  } else {
+    s.applyForce(0);
+  }
+  s.draw(width/2, height/2);
 }   
 void moveStars(int speed) {
  ArrayList toRemove = new ArrayList();
