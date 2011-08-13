@@ -1,21 +1,3 @@
-float radius = 50;
-int X, Y;  
-int nX, nY;  
-int delay = 16;  
-void setup()  
-{  
-  size(200,200);  
-  background(125);  
-  fill(255);  
-//  noLoop();  
-  PFont fontA = loadFont("courier");  
-  textFont(fontA, 14);    
-  X = width / 2;  
-  Y = height / 2;  
-  nX = X;  
-  nY = Y;    
-  frameRate( 15 )
-}    
 class Ship {
   int len = 40;
   int h = 20;
@@ -36,6 +18,7 @@ class Ship {
       -PI / 2, PI / 2);
   }
 }
+
 class Star {
   int x;
   int y;
@@ -53,12 +36,27 @@ class Star {
     ellipse(x, y, 3, 3);            
   }
 }
+
 Ship s = new Ship();
-void draw(){    
+
+void setup() {  
+  size(200,200);  
+  background(125);  
+  fill(255);  
+  PFont fontA = loadFont("courier");  
+  textFont(fontA, 14);    
+  frameRate( 15 )
+}
+void draw () {    
   background( 100 );  
+  int speed = 2;
+  moveStars(); 
   drawStars(); 
   s.draw(width/2, height/2, 0);
 }   
+void moveStars(int speed) {
+  
+}
 
 void drawStars() {
   new Star(10).draw();
