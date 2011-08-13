@@ -38,7 +38,7 @@ class Star {
 }
 
 Ship s = new Ship();
-
+ArrayList stars = new ArrayList();
 void setup() {  
   size(200,200);  
   background(125);  
@@ -46,19 +46,31 @@ void setup() {
   PFont fontA = loadFont("courier");  
   textFont(fontA, 14);    
   frameRate( 15 )
+  
+  createStars(); 
+}
+void createStars() {
+  int ii;
+  for (ii = 0; ii < 20; ii++) {
+    stars.add(new Star(random(width), random(height)));
+  }
 }
 void draw () {    
   background( 100 );  
   int speed = 2;
-  moveStars(); 
+  moveStars(speed); 
   drawStars(); 
   s.draw(width/2, height/2, 0);
 }   
 void moveStars(int speed) {
-  
+ for (int i = 0; i < 20; i++) {
+   stars.get(i).moveBy(speed, 0);
+ }
 }
 
 void drawStars() {
-  new Star(10).draw();
+ for (int i = 0; i < 20; i++) {
+   stars.get(i).draw();
+ }
 }
 
