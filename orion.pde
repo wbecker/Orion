@@ -76,13 +76,14 @@ void createStars() {
     stars.add(new Star(random(width), random(height), random(maxStarSize)));
   }
 }
+int speed = 0;
 void draw () {    
   background( 100 );  
-  int speed = 2;
   moveStars(speed); 
   drawStars(); 
   if (frameCount % 20 == 0) {
     s.applyForce(1);
+    speed += 1;
   } else {
     s.applyForce(0);
   }
@@ -99,7 +100,7 @@ void moveStars(int speed) {
  }
  for (int i = 0; i < toRemove.size(); i++) {
    stars.remove(toRemove.get(i));
-   stars.add(new Star(width, random(height), random(maxStarSize)));
+   stars.add(new Star(width + random(speed)*2, random(height), random(maxStarSize)));
  }
 
 }
